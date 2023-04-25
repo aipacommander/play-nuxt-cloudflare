@@ -1,0 +1,24 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+      - 24678:24678
+    volumes:
+      - .:/app
+      - node-modules:/app/node_modules
+    working_dir: /app
+    command: npm run dev
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - 8976:80
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+
+
+volumes:
+  node-modules:
